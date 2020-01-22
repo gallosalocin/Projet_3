@@ -2,4 +2,11 @@
     <string name="app_name">Entrevoisins</string>
     <string name="tab_neighbour_title">My neighbours</string>
     <string name="tab_favorites_title">Favorites</string>
+    <string name="name">Prenom</string>
+    <string name="adress">Adresse</string>
+    <string name="phone">Telephone</string>
+    <string name="website">Website</string>
+    <string name="About">A propos de moi</string>
+    <string name="text_details">Bonjour ! Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une
+        ou plusieurs personnes susceptibles de m\'accompagner ! J\'aime les jeux de cartes tels la belote et le tarot.</string>
 </resources>

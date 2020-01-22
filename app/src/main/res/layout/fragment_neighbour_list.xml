@@ -11,3 +11,4 @@
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.neighbour_list.NeighbourFragment"
     tools:listitem="@layout/fragment_neighbour" />
+

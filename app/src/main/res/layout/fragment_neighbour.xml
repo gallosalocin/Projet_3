@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -16,7 +15,8 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/image_test" />
 
     <TextView
         android:id="@+id/item_list_name"
@@ -26,7 +26,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/item_list_avatar"
         app:layout_constraintStart_toEndOf="@+id/item_list_avatar"
-        app:layout_constraintTop_toTopOf="@+id/item_list_avatar" />
+        app:layout_constraintTop_toTopOf="@+id/item_list_avatar"
+        android:text="Prenom" />
 
     <ImageButton
         android:id="@+id/item_list_delete_button"

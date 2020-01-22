@@ -7,17 +7,24 @@ import java.util.Objects;
  */
 public class Neighbour {
 
-    /** Identifier */
+    /**
+     * Identifier
+     */
     private Integer id;
 
-    /** Full name */
+    /**
+     * Full name
+     */
     private String name;
 
-    /** Avatar */
+    /**
+     * Avatar
+     */
     private String avatarUrl;
 
     /**
      * Constructor
+     *
      * @param id
      * @param name
      * @param avatarUrl
@@ -54,8 +61,10 @@ public class Neighbour {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Neighbour neighbour = (Neighbour) o;
         return Objects.equals(id, neighbour.id);
     }
@@ -64,4 +73,5 @@ public class Neighbour {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
