@@ -1,7 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +20,11 @@ public class ListNeighbourActivity extends AppCompatActivity {
     Toolbar mToolbar;
     @BindView(R.id.container)
     ViewPager mViewPager;
-    @BindView(R.id.fab_add_user)
-    FloatingActionButton mFabAddUser;
+    //    @BindView(R.id.fab_add_user)
+    //    FloatingActionButton mFabAddUser;
 
 
     ListNeighbourPagerAdapter mPagerAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +38,6 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-
     }
-
-
-    //    public void configFab() {
-    //        mFabAddUser = findViewById(R.id.fab_add_user);
-    //        mFabAddUser.setOnClickListener(view -> {
-    //
-    //        });
-    //    }
-
 
 }

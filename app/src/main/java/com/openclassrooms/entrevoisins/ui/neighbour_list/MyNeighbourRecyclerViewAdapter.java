@@ -25,15 +25,20 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     private final List<Neighbour> mNeighbours;
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
+    private OnItemListener mOnItemListener;
+
+    //    private View.OnClickListener mOnItemClickListener;
+
+
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, OnItemListener onItemListener) {
         mNeighbours = items;
+        mOnItemListener = onItemListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_neighbour, parent, false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_neighbour, parent, false);
+        return new ViewHolder(view, mOnItemListener);
     }
 
     @Override
@@ -45,12 +50,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
 
-        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
-            }
-        });
+        holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour)));
     }
 
     @Override
@@ -58,8 +58,16 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         return mNeighbours.size();
     }
 
+    //    public void setOnItemClickListener (View.OnClickListener itemClickListener ) {
+    //        mOnItemClickListener = itemClickListener;
+    //    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    //    public Neighbour getNeighbour(int position) {
+    //        return this.mNeighbours.get(position);
+    //    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         @BindView(R.id.item_list_avatar)
         public ImageView mNeighbourAvatar;
         @BindView(R.id.item_list_name)
@@ -67,9 +75,27 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
 
-        public ViewHolder(View view) {
+        OnItemListener mOnItemListener;
+
+        public ViewHolder(View view, OnItemListener onItemListener) {
             super(view);
             ButterKnife.bind(this, view);
+            this.mOnItemListener = onItemListener;
+
+            view.setOnClickListener(this);
+
+            //
+            //            view.setTag(this);
+            //            view.setOnClickListener(mOnItemClickListener);
         }
+
+        @Override
+        public void onClick(View view) {
+            mOnItemListener.onItemClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnItemListener {
+        void onItemClick(int position);
     }
 }

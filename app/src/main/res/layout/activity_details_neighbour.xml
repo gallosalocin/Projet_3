@@ -8,19 +8,6 @@
     tools:context=".ui_neighbour_details.DetailsNeighbourActivity"
     tools:ignore="ContentDescription">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fb_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorWhite"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_star_favorite"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_photo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
 
     <ImageView
         android:id="@+id/iv_photo"
@@ -210,10 +197,23 @@
                 android:layout_height="match_parent"
                 android:paddingStart="15dp"
                 android:paddingTop="10dp"
-                android:paddingEnd="0dp"
+                android:paddingEnd="5dp"
                 android:text="@string/text_details" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/colorWhite"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_star_favorite"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
 
 
 </android.support.constraint.ConstraintLayout>
