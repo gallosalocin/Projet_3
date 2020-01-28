@@ -27,7 +27,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     private OnItemListener mOnItemListener;
 
-    //    private View.OnClickListener mOnItemClickListener;
 
 
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, OnItemListener onItemListener) {
@@ -58,13 +57,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         return mNeighbours.size();
     }
 
-    //    public void setOnItemClickListener (View.OnClickListener itemClickListener ) {
-    //        mOnItemClickListener = itemClickListener;
-    //    }
-
-    //    public Neighbour getNeighbour(int position) {
-    //        return this.mNeighbours.get(position);
-    //    }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -84,9 +76,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
             view.setOnClickListener(this);
 
-            //
-            //            view.setTag(this);
-            //            view.setOnClickListener(mOnItemClickListener);
         }
 
         @Override

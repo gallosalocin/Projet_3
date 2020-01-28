@@ -60,24 +60,9 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         initList();
 
 
-        //        this.configureOnClickRecyclerView();
 
         return view;
     }
-
-
-    //    private void configureOnClickRecyclerView() {
-    //        ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_neighbour).setOnItemClickListener((recyclerView, position, view) -> {
-    //            mRecyclerViewAdapter = new MyNeighbourRecyclerViewAdapter(mNeighbours);
-    //            Neighbour neighbour = mRecyclerViewAdapter.getNeighbour(position);
-    //            Toast.makeText(getContext(), "You clicked on neighbour : " +neighbour.getName(), Toast.LENGTH_SHORT).show();
-    //
-    //            Intent intent = new Intent(getContext(), DetailsNeighbourActivity.class);
-    //            intent.putExtra("Neighbour Detail", mNeighbours.get(position));
-    //            startActivity(intent);
-    //
-    //        });
-    //    }
 
 
     /**
@@ -113,7 +98,7 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(getContext(), DetailsNeighbourActivity.class);
+        Intent intent = new Intent(getActivity(), DetailsNeighbourActivity.class);
         intent.putExtra("Neighbour Detail", mNeighbours.get(position));
         startActivity(intent);
 

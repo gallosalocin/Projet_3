@@ -2,8 +2,9 @@ package com.openclassrooms.entrevoisins.ui_neighbour_details;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageButton;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,30 +12,48 @@ import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
+import butterknife.ButterKnife;
+
 public class DetailsNeighbourActivity extends AppCompatActivity {
 
+    boolean isPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_neighbour);
+        ButterKnife.bind(this);
 
 
-        transfertParcelable();
-        myBackImageButton();
+        transfertExtras();
+        configToolbar();
         myFabFavoriteButton();
-
 
     }
 
 
     public void myFabFavoriteButton() {
-        FloatingActionButton FabFavorite = findViewById(R.id.fab_favorite);
-        FabFavorite.setOnClickListener(view -> FabFavorite.setBackgroundColor(getResources().getColor(R.color.colorGrey)));
+        FloatingActionButton fabFavorite = findViewById(R.id.fab_favorite);
+
+        fabFavorite.setOnClickListener(view -> {
+
+            if (isPressed) {
+                fabFavorite.setImageResource(R.drawable.ic_star_border_black);
+                //                removeFromFavorite();
+
+            } else {
+                fabFavorite.setImageResource(R.drawable.ic_star_favorite);
+                //                addToFavorite();
+
+
+            }
+            isPressed = !isPressed;
+
+        });
     }
 
 
-    public void transfertParcelable() {
+    public void transfertExtras() {
         if (getIntent().hasExtra("Neighbour Detail")) {
             Neighbour neighbour = getIntent().getParcelableExtra("Neighbour Detail");
 
@@ -52,11 +71,10 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
         }
     }
 
-
-    public void myBackImageButton() {
-        ImageButton back = findViewById(R.id.btn_back);
-        back.setOnClickListener(v -> onBackPressed());
+    private void configToolbar() {
+        Toolbar toolbar = findViewById(R.id.tb_details);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
-
-
 }

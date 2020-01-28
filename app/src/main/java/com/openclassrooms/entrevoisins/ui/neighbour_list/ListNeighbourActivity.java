@@ -20,9 +20,6 @@ public class ListNeighbourActivity extends AppCompatActivity {
     Toolbar mToolbar;
     @BindView(R.id.container)
     ViewPager mViewPager;
-    //    @BindView(R.id.fab_add_user)
-    //    FloatingActionButton mFabAddUser;
-
 
     ListNeighbourPagerAdapter mPagerAdapter;
 
