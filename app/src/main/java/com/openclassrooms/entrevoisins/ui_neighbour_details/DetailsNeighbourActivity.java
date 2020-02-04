@@ -11,12 +11,40 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.NeighbourFragment;
 
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DetailsNeighbourActivity extends AppCompatActivity {
 
+    @BindView(R.id.iv_photo)
+    ImageView photo;
+    @BindView(R.id.tv_name_photo)
+    TextView titleName;
+    @BindView(R.id.tv_name)
+    TextView detailName;
+    @BindView(R.id.fab_favorite)
+    FloatingActionButton fabFavorite;
+    @BindView(R.id.tv_address)
+    TextView detailAddress;
+    @BindView(R.id.tv_phone)
+    TextView detailPhoneNumber;
+    @BindView(R.id.tv_website)
+    TextView detailWebSite;
+    @BindView(R.id.tv_about_me_details)
+    TextView detailAboutMe;
+
     boolean isPressed = false;
+    private NeighbourFragment mNeighbourFragment;
+    private List<Neighbour> mFavorites;
+    private NeighbourApiService mApiService;
+    private List<Neighbour> mNeighbours;
+    DummyNeighbourGenerator mDummyNeighbourGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,27 +52,22 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details_neighbour);
         ButterKnife.bind(this);
 
-
-        transfertExtras();
+        sendExtras();
         configToolbar();
         myFabFavoriteButton();
 
     }
 
-
     public void myFabFavoriteButton() {
-        FloatingActionButton fabFavorite = findViewById(R.id.fab_favorite);
 
         fabFavorite.setOnClickListener(view -> {
 
             if (isPressed) {
                 fabFavorite.setImageResource(R.drawable.ic_star_border_black);
-                //                removeFromFavorite();
-
+                mApiService.removeFavorite();
             } else {
                 fabFavorite.setImageResource(R.drawable.ic_star_favorite);
-                //                addToFavorite();
-
+                mApiService.addFavorite();
 
             }
             isPressed = !isPressed;
@@ -52,22 +75,45 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
         });
     }
 
+    public void sendExtras() {
+        if (getIntent().hasExtra("NeighbourDetail")) {
 
-    public void transfertExtras() {
-        if (getIntent().hasExtra("Neighbour Detail")) {
-            Neighbour neighbour = getIntent().getParcelableExtra("Neighbour Detail");
+            Neighbour neighbour = getIntent().getParcelableExtra("NeighbourDetail");
 
-            String name = neighbour.getName();
             String avatar = neighbour.getAvatarUrl();
+            String name = neighbour.getName();
+            String address = neighbour.getAddress();
+            String phone = neighbour.getPhoneNumber();
+            String webSite = neighbour.getWebSite();
+            String aboutMe = neighbour.getAboutMe();
 
-            TextView textview = findViewById(R.id.tv_name);
-            textview.setText(name);
+            Glide.with(this).load(avatar).into(photo);
+            titleName.setText(name);
+            detailName.setText(name);
+            detailAddress.setText(address);
+            detailPhoneNumber.setText(phone);
+            detailWebSite.setText(webSite);
+            detailAboutMe.setText(aboutMe);
 
-            TextView textview2 = findViewById(R.id.tv_name_photo);
-            textview2.setText(name);
+        }
+        if (getIntent().hasExtra("FavoriteDetail")) {
 
-            ImageView imageView = findViewById(R.id.iv_photo);
-            Glide.with(this).load(avatar).into(imageView);
+            Neighbour neighbour = getIntent().getParcelableExtra("FavoriteDetail");
+
+            String avatar = neighbour.getAvatarUrl();
+            String name = neighbour.getName();
+            String address = neighbour.getAddress();
+            String phone = neighbour.getPhoneNumber();
+            String webSite = neighbour.getWebSite();
+            String aboutMe = neighbour.getAboutMe();
+
+            Glide.with(this).load(avatar).into(photo);
+            titleName.setText(name);
+            detailName.setText(name);
+            detailAddress.setText(address);
+            detailPhoneNumber.setText(phone);
+            detailWebSite.setText(webSite);
+            detailAboutMe.setText(aboutMe);
         }
     }
 
@@ -77,4 +123,5 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
+
 }

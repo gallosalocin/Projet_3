@@ -3,6 +3,8 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,16 +23,27 @@ import com.openclassrooms.entrevoisins.ui_neighbour_details.DetailsNeighbourActi
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 
 public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerViewAdapter.OnItemListener {
 
+    @BindView(R.id.tabs)
+    TabLayout mTabLayout;
+    @BindView(R.id.tabItem)
+    TabItem mTabItemMyNeighbours;
+    @BindView(R.id.tabItem2)
+    TabItem mTabItemFavorites;
+
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
+    private List<Neighbour> mFavorites;
     private RecyclerView mRecyclerView;
 
-    //    private MyNeighbourRecyclerViewAdapter mRecyclerViewAdapter;
+    private int mPosition;
 
 
     /**
@@ -38,15 +51,22 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
      *
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance() {
-        NeighbourFragment fragment = new NeighbourFragment();
-        return fragment;
+    public static NeighbourFragment newInstance(int position) {
+        NeighbourFragment neighbourFragment = new NeighbourFragment();
+        Bundle args = new Bundle();
+        args.putInt("position", position);
+        neighbourFragment.setArguments(args);
+        return neighbourFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
+
+        if (getArguments() != null) {
+            mPosition = getArguments().getInt("position", 0);
+        }
     }
 
     @Override
@@ -59,11 +79,24 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
 
         initList();
 
-
+        isNeighbourFavorite();
 
         return view;
     }
 
+
+    public void isNeighbourFavorite() {
+
+
+        mFavorites = new ArrayList<>();
+
+        for (Neighbour neighbour : mNeighbours) {
+            if (neighbour.isFavorite()) {
+                mFavorites.add(neighbour);
+            }
+        }
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, this));
+    }
 
     /**
      * Init the List of neighbours
@@ -71,6 +104,11 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -99,8 +137,10 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getActivity(), DetailsNeighbourActivity.class);
-        intent.putExtra("Neighbour Detail", mNeighbours.get(position));
+        intent.putExtra("NeighbourDetail", mNeighbours.get(position));
+        intent.putExtra("FavoriteDetail", mFavorites.get(position));
         startActivity(intent);
 
     }
+
 }

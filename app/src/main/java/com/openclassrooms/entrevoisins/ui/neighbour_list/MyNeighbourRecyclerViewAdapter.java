@@ -28,7 +28,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     private OnItemListener mOnItemListener;
 
 
-
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, OnItemListener onItemListener) {
         mNeighbours = items;
         mOnItemListener = onItemListener;
@@ -44,10 +43,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Neighbour neighbour = mNeighbours.get(position);
         holder.mNeighbourName.setText(neighbour.getName());
-        Glide.with(holder.mNeighbourAvatar.getContext())
-                .load(neighbour.getAvatarUrl())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.mNeighbourAvatar);
+        Glide.with(holder.mNeighbourAvatar.getContext()).load(neighbour.getAvatarUrl()).apply(RequestOptions.circleCropTransform()).into(holder.mNeighbourAvatar);
 
         holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour)));
     }
