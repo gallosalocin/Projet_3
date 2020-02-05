@@ -84,16 +84,20 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
     }
 
     public void initSelection() {
-        if (mPosition == 0) {
-            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
-        } else {
-            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, this));
+        switch (mPosition) {
+            case 0:
+                mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
+                break;
+            case 1:
+                mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, this));
+                break;
+            default:
+                break;
         }
     }
 
     public void isNeighbourFavorite() {
         mFavorites = new ArrayList<>();
-
         for (Neighbour neighbour : mNeighbours) {
             if (neighbour.isFavorite()) {
                 mFavorites.add(neighbour);
@@ -133,15 +137,32 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
-        initList();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
+        isNeighbourFavorite();
+        switch (mPosition) {
+            case 0:
+                mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
+                break;
+            case 1:
+                mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, this));
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getActivity(), DetailsNeighbourActivity.class);
-        intent.putExtra("NeighbourDetail", mNeighbours.get(position));
-        intent.putExtra("FavoriteDetail", mFavorites.get(position));
+        switch (mPosition) {
+            case 0:
+                intent.putExtra("NeighbourDetail", mNeighbours.get(position));
+                break;
+            case 1:
+                intent.putExtra("FavoriteDetail", mFavorites.get(position));
+                break;
+            default:
+                break;
+        }
         startActivity(intent);
     }
 }
