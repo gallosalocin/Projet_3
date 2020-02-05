@@ -24,9 +24,7 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
-
     private OnItemListener mOnItemListener;
-
 
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, OnItemListener onItemListener) {
         mNeighbours = items;
@@ -42,9 +40,8 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Neighbour neighbour = mNeighbours.get(position);
-        holder.mNeighbourName.setText(neighbour.getName());
         Glide.with(holder.mNeighbourAvatar.getContext()).load(neighbour.getAvatarUrl()).apply(RequestOptions.circleCropTransform()).into(holder.mNeighbourAvatar);
-
+        holder.mNeighbourName.setText(neighbour.getName());
         holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour)));
     }
 
@@ -52,7 +49,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     public int getItemCount() {
         return mNeighbours.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -69,9 +65,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             super(view);
             ButterKnife.bind(this, view);
             this.mOnItemListener = onItemListener;
-
             view.setOnClickListener(this);
-
         }
 
         @Override

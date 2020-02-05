@@ -42,7 +42,6 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
     private List<Neighbour> mNeighbours;
     private List<Neighbour> mFavorites;
     private RecyclerView mRecyclerView;
-
     private int mPosition;
 
 
@@ -78,16 +77,21 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         initList();
-
         isNeighbourFavorite();
+        initSelection();
 
         return view;
     }
 
+    public void initSelection() {
+        if (mPosition == 0) {
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
+        } else {
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, this));
+        }
+    }
 
     public void isNeighbourFavorite() {
-
-
         mFavorites = new ArrayList<>();
 
         for (Neighbour neighbour : mNeighbours) {
@@ -95,7 +99,6 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
                 mFavorites.add(neighbour);
             }
         }
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, this));
     }
 
     /**
@@ -103,7 +106,6 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
      */
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
     }
 
     @Override
@@ -132,6 +134,7 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
     }
 
     @Override
@@ -140,7 +143,5 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         intent.putExtra("NeighbourDetail", mNeighbours.get(position));
         intent.putExtra("FavoriteDetail", mFavorites.get(position));
         startActivity(intent);
-
     }
-
 }
