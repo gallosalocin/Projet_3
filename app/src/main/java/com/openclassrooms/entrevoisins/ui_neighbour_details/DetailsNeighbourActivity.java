@@ -10,12 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.DummyNeighbourGenerator;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.NeighbourFragment;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,80 +37,51 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
     TextView detailAboutMe;
 
     boolean isPressed = false;
-    private NeighbourFragment mNeighbourFragment;
-    private List<Neighbour> mFavorites;
-    private NeighbourApiService mApiService;
-    private List<Neighbour> mNeighbours;
-    DummyNeighbourGenerator mDummyNeighbourGenerator;
+    private NeighbourApiService apiService;
+    private Neighbour neighbour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_neighbour);
         ButterKnife.bind(this);
+        apiService = DI.getNeighbourApiService();
 
-        sendExtras();
+        onGetExtras();
         configToolbar();
         myFabFavoriteButton();
-
     }
 
     public void myFabFavoriteButton() {
 
         fabFavorite.setOnClickListener(view -> {
-
-            if (isPressed) {
-                fabFavorite.setImageResource(R.drawable.ic_star_border_black);
-                mApiService.removeFavorite();
-            } else {
-                fabFavorite.setImageResource(R.drawable.ic_star_favorite);
-                mApiService.addFavorite();
-
-            }
-            isPressed = !isPressed;
-
+            apiService.addFavorite(neighbour);
+            neighbour.setIsFavorite(!neighbour.getIsFavorite());
         });
     }
 
-    public void sendExtras() {
-        if (getIntent().hasExtra("NeighbourDetail")) {
 
-            Neighbour neighbour = getIntent().getParcelableExtra("NeighbourDetail");
+    private void onGetExtras() {
+        if (getIntent().hasExtra("Neighbour")) {
 
-            String avatar = neighbour.getAvatarUrl();
+            neighbour = getIntent().getParcelableExtra("Neighbour");
+
             String name = neighbour.getName();
             String address = neighbour.getAddress();
             String phone = neighbour.getPhoneNumber();
             String webSite = neighbour.getWebSite();
             String aboutMe = neighbour.getAboutMe();
+            boolean isFavorite = neighbour.getIsFavorite();
 
-            Glide.with(this).load(avatar).into(photo);
             titleName.setText(name);
             detailName.setText(name);
             detailAddress.setText(address);
             detailPhoneNumber.setText(phone);
             detailWebSite.setText(webSite);
             detailAboutMe.setText(aboutMe);
+            Glide.with(this).load(neighbour.getAvatarUrl()).into(photo);
+            fabFavorite.setImageResource(isFavorite ? R.drawable.ic_star_favorite : R.drawable.ic_star_border_black);
 
-        }
-        if (getIntent().hasExtra("FavoriteDetail")) {
-
-            Neighbour neighbour = getIntent().getParcelableExtra("FavoriteDetail");
-
-            String avatar = neighbour.getAvatarUrl();
-            String name = neighbour.getName();
-            String address = neighbour.getAddress();
-            String phone = neighbour.getPhoneNumber();
-            String webSite = neighbour.getWebSite();
-            String aboutMe = neighbour.getAboutMe();
-
-            Glide.with(this).load(avatar).into(photo);
-            titleName.setText(name);
-            detailName.setText(name);
-            detailAddress.setText(address);
-            detailPhoneNumber.setText(phone);
-            detailWebSite.setText(webSite);
-            detailAboutMe.setText(aboutMe);
         }
     }
 
@@ -123,5 +91,4 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
-
 }

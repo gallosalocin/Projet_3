@@ -28,19 +28,7 @@ public interface NeighbourApiService {
     /**
      * Add a neighbour as favorite
      */
-    void addFavorite();
-
-
-    /**
-     * Remove a neighbour from favorite
-     */
-    void removeFavorite();
-
-    /**
-     * Get all my Favorites
-     */
-    List<Neighbour> getFavorite();
-
+    void addFavorite(Neighbour neighbour);
 
 
 }

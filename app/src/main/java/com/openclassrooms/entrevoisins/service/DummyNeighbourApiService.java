@@ -2,18 +2,14 @@ package com.openclassrooms.entrevoisins.service;
 
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Dummy mock for the Api
  */
-public class DummyNeighbourApiService implements  NeighbourApiService {
+public class DummyNeighbourApiService implements NeighbourApiService {
 
     private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
-
-    private List<Neighbour> favorite = new ArrayList<>();
-
 
     /**
      * {@inheritDoc}
@@ -33,25 +29,12 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
 
     @Override
-    public void addFavorite() {
-        for (Neighbour neighbour : neighbours) {
-            if (neighbour.isFavorite()) {
-                favorite.add(neighbour);
-            }
-        }
-    }
-
-    @Override
-    public void removeFavorite() {
-        for (Neighbour neighbour : neighbours) {
-            if (!neighbour.isFavorite()) {
-                favorite.add(neighbour);
-            }
-        }
-    }
-
-    @Override
-    public List<Neighbour> getFavorite() {
-        return favorite;
+    public void addFavorite(Neighbour neighbour) {
+        /**
+         * TODO
+         * Récupérer le voisin dans la liste globale = Avoir sa position dans la liste
+         */
+        int position = neighbours.indexOf(neighbour);
+        neighbours.get(position).setIsFavorite(!neighbour.getIsFavorite());
     }
 }
