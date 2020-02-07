@@ -1,4 +1,4 @@
-package com.openclassrooms.entrevoisins.ui_neighbour_details;
+package com.openclassrooms.entrevoisins.ui.neighbour_details;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -36,7 +36,6 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
     @BindView(R.id.tv_about_me_details)
     TextView detailAboutMe;
 
-    boolean isPressed = false;
     private NeighbourApiService apiService;
     private Neighbour neighbour;
 
@@ -53,35 +52,26 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
     }
 
     public void myFabFavoriteButton() {
-
         fabFavorite.setOnClickListener(view -> {
-            apiService.addFavorite(neighbour);
+            apiService.addNeighbourAsFavorite(neighbour);
             neighbour.setIsFavorite(!neighbour.getIsFavorite());
+            fabFavorite.setImageResource(neighbour.getIsFavorite() ? R.drawable.ic_star_favorite : R.drawable.ic_star_border_black);
         });
     }
-
 
     private void onGetExtras() {
         if (getIntent().hasExtra("Neighbour")) {
 
             neighbour = getIntent().getParcelableExtra("Neighbour");
 
-            String name = neighbour.getName();
-            String address = neighbour.getAddress();
-            String phone = neighbour.getPhoneNumber();
-            String webSite = neighbour.getWebSite();
-            String aboutMe = neighbour.getAboutMe();
-            boolean isFavorite = neighbour.getIsFavorite();
-
-            titleName.setText(name);
-            detailName.setText(name);
-            detailAddress.setText(address);
-            detailPhoneNumber.setText(phone);
-            detailWebSite.setText(webSite);
-            detailAboutMe.setText(aboutMe);
             Glide.with(this).load(neighbour.getAvatarUrl()).into(photo);
-            fabFavorite.setImageResource(isFavorite ? R.drawable.ic_star_favorite : R.drawable.ic_star_border_black);
-
+            titleName.setText(neighbour.getName());
+            detailName.setText(neighbour.getName());
+            detailAddress.setText(neighbour.getAddress());
+            detailPhoneNumber.setText(neighbour.getPhoneNumber());
+            detailWebSite.setText(neighbour.getWebSite());
+            detailAboutMe.setText(neighbour.getAboutMe());
+            fabFavorite.setImageResource(neighbour.getIsFavorite() ? R.drawable.ic_star_favorite : R.drawable.ic_star_border_black);
         }
     }
 

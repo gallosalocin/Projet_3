@@ -29,7 +29,7 @@ public class DummyNeighbourApiService implements NeighbourApiService {
 
 
     @Override
-    public void addFavorite(Neighbour neighbour) {
+    public void addNeighbourAsFavorite(Neighbour neighbour) {
         /**
          * TODO
          * Récupérer le voisin dans la liste globale = Avoir sa position dans la liste

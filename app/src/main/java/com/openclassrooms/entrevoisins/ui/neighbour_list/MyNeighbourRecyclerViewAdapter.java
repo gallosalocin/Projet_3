@@ -24,17 +24,17 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
-    private OnItemListener mOnItemListener;
+    private OnItemListener onItemListener;
 
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, OnItemListener onItemListener) {
         mNeighbours = items;
-        mOnItemListener = onItemListener;
+        this.onItemListener = onItemListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_neighbour, parent, false);
-        return new ViewHolder(view, mOnItemListener);
+        return new ViewHolder(view, onItemListener);
     }
 
     @Override
@@ -59,18 +59,18 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
 
-        OnItemListener mOnItemListener;
+        OnItemListener onItemListener;
 
         public ViewHolder(View view, OnItemListener onItemListener) {
             super(view);
             ButterKnife.bind(this, view);
-            this.mOnItemListener = onItemListener;
+            this.onItemListener = onItemListener;
             view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            mOnItemListener.onItemClick(getAdapterPosition());
+            onItemListener.onItemClick(getAdapterPosition());
         }
     }
 
