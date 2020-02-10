@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
@@ -21,6 +22,7 @@ import static org.junit.Assert.assertThat;
 public class NeighbourServiceTest {
 
     private NeighbourApiService service;
+    private List<Neighbour> favorites;
 
     @Before
     public void setup() {
@@ -39,5 +41,13 @@ public class NeighbourServiceTest {
         Neighbour neighbourToDelete = service.getNeighbours().get(0);
         service.deleteNeighbour(neighbourToDelete);
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
+    }
+
+    @Test
+    public void addNeighbourAsFavoriteWithSuccess() {
+        Neighbour neighbourAsFavorite = service.getNeighbours().get(0);
+        favorites = new ArrayList<>();
+        service.addNeighbourAsFavorite(neighbourAsFavorite);
+        //        assertArrayEquals(favorites.size()+1, favorites.size());
     }
 }

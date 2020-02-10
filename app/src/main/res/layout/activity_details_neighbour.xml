@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="#DBDDDD"
     tools:context=".ui.neighbour_details.DetailsNeighbourActivity"
-    tools:ignore="ContentDescription">
+    tools:ignore="ContentDescription"
+    android:id="@+id/details_content">
 
 
 
