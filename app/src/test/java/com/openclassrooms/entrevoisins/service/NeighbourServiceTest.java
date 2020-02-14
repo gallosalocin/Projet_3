@@ -48,6 +48,6 @@ public class NeighbourServiceTest {
         Neighbour neighbourAsFavorite = service.getNeighbours().get(0);
         favorites = new ArrayList<>();
         service.addNeighbourAsFavorite(neighbourAsFavorite);
-        //        assertArrayEquals(favorites.size()+1, favorites.size());
+        //        assertArray(favorites.size()+1, favorites.size());
     }
 }

@@ -27,13 +27,8 @@ public class DummyNeighbourApiService implements NeighbourApiService {
         neighbours.remove(neighbour);
     }
 
-
     @Override
     public void addNeighbourAsFavorite(Neighbour neighbour) {
-        /**
-         * TODO
-         * Récupérer le voisin dans la liste globale = Avoir sa position dans la liste
-         */
         int position = neighbours.indexOf(neighbour);
         neighbours.get(position).setIsFavorite(!neighbour.getIsFavorite());
     }

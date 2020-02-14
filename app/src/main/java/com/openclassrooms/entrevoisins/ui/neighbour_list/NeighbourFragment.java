@@ -64,10 +64,6 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
-        initList();
-        isNeighbourFavorite();
-        initSelection();
-
         return view;
     }
 
@@ -104,6 +100,9 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        initList();
+        isNeighbourFavorite();
+        initSelection();
     }
 
     @Override
