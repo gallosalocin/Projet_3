@@ -9,3 +9,4 @@ Application qui permet à des personnes d’un même quartier de se rendre des p
 - Depuis Github appuyer sur Clone or download ou copier directement: https://github.com/gallosalocin/Projet_3.git
 - Dans Android Studio cliquer sur `File`, `New`, `Project from Version Control` et enfin sur `Git`.
 - Coller l'URL et appuyer sur `clone`.
+- Une fois chargé, pour lancer le programme cliquer sur `Run` et ensuite sur `Run 'app'`
