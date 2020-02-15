@@ -11,11 +11,11 @@ import java.util.Objects;
 public class Neighbour implements Parcelable {
 
 
-    private Integer id;
-    private String name, avatarUrl, address, phoneNumber, webSite, aboutMe;
-    private boolean isFavorite;
+    private long id;
+    private String name = " ", avatarUrl = " ", address = " ", phoneNumber = " ", webSite = " ", aboutMe = " ";
+    private boolean isFavorite = false;
 
-    public Neighbour(Integer id, String name, String avatarUrl, String address, String phoneNumber, String webSite, String aboutMe, boolean isFavorite) {
+    public Neighbour(long id, String name, String avatarUrl, String address, String phoneNumber, String webSite, String aboutMe, boolean isFavorite) {
         this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
@@ -27,7 +27,7 @@ public class Neighbour implements Parcelable {
     }
 
     protected Neighbour(Parcel in) {
-        id = in.readInt();
+        id = in.readLong();
         name = in.readString();
         avatarUrl = in.readString();
         address = in.readString();
@@ -49,11 +49,20 @@ public class Neighbour implements Parcelable {
         }
     };
 
-    public Integer getId() {
+    public Neighbour(long id, String name, String avatarUrl, String address, String phoneNumber, String aboutMe) {
+        this.id = id;
+        this.name = name;
+        this.avatarUrl = avatarUrl;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.aboutMe = aboutMe;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -135,7 +144,7 @@ public class Neighbour implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeLong(id);
         dest.writeString(name);
         dest.writeString(avatarUrl);
         dest.writeString(address);

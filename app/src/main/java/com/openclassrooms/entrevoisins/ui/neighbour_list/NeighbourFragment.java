@@ -63,7 +63,6 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
         return view;
     }
 
