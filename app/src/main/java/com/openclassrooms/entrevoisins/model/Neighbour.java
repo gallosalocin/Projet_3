@@ -12,7 +12,7 @@ public class Neighbour implements Parcelable {
 
 
     private long id;
-    private String name = " ", avatarUrl = " ", address = " ", phoneNumber = " ", webSite = " ", aboutMe = " ";
+    private String name, avatarUrl, address, phoneNumber, webSite, aboutMe;
     private boolean isFavorite = false;
 
     public Neighbour(long id, String name, String avatarUrl, String address, String phoneNumber, String webSite, String aboutMe, boolean isFavorite) {

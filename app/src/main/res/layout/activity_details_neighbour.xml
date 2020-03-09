@@ -2,14 +2,12 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/details_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DBDDDD"
     tools:context=".ui.neighbour_details.DetailsNeighbourActivity"
-    tools:ignore="ContentDescription"
-    android:id="@+id/details_content">
-
-
+    tools:ignore="ContentDescription">
 
     <ImageView
         android:id="@+id/iv_photo"
@@ -65,7 +63,6 @@
             android:id="@+id/cl_up"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <TextView
                 android:id="@+id/tv_name"
@@ -220,6 +217,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
-
 
 </android.support.constraint.ConstraintLayout>

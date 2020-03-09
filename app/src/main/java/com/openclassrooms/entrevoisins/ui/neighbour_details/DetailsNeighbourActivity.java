@@ -14,6 +14,8 @@ import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -35,6 +37,9 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
     TextView detailWebSite;
     @BindView(R.id.tv_about_me_details)
     TextView detailAboutMe;
+    @BindView(R.id.tb_details)
+    Toolbar toolbar;
+
 
     private NeighbourApiService apiService;
     private Neighbour neighbour;
@@ -76,9 +81,8 @@ public class DetailsNeighbourActivity extends AppCompatActivity {
     }
 
     private void configToolbar() {
-        Toolbar toolbar = findViewById(R.id.tb_details);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
     }
 }
